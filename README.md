@@ -167,7 +167,7 @@ server {
 
 #### 方案架构
 - **前端静态托管**：[Vercel](https://vercel.com) / [Netlify](https://www.netlify.com) (全自动构建、免费全球 CDN 与 HTTPS 域名)
-- **后端服务托管**：[Koyeb](https://www.koyeb.com) (推荐，提供永不休眠的免费 Eco 实例与 HTTPS 支持) / [Render](https://render.com)
+- **后端服务托管**：[Render](https://render.com) (首选，支持免费关联 GitHub 部署自动构建，无需绑卡验证)
 - **生产级云数据库**：[Supabase](https://supabase.com) (提供免费额度的 Serverless PostgreSQL，被称为开源 Firebase)
 
 #### 实操步骤
@@ -179,7 +179,7 @@ server {
    - 在 `backend/` 目录下创建一个无后缀名为 `Dockerfile` 的文件：
    ```dockerfile
    # Stage 1: Build
-   FROM golang:1.23-alpine AS builder
+   FROM golang:alpine AS builder
    WORKDIR /app
    COPY go.mod go.sum ./
    RUN go mod download
@@ -195,10 +195,10 @@ server {
    CMD ["./pet_server"]
    ```
    - 将整个 `backend` 目录推送到你个人的 GitHub 仓库。
-   - 登录 [Koyeb 控制台](https://app.koyeb.com)，选择关联你的 GitHub 仓库部署 Web Service。填入环境变量（如数据库连接密码等），Koyeb 会拉取代码、自动构建 Docker 镜像并 24 小时运行，并送你一个免费带有 SSL 的接口域名（例如 `https://pet-api-xxx.koyeb.app`）。
+   - 登录 [Render 控制台](https://dashboard.render.com)，选择新建 Web Service，连接你的 GitHub 仓库。填入环境变量（如数据库连接密码等），Render 会拉取代码、自动构建 Docker 镜像并运行，并送你一个免费带有 SSL 的接口域名（例如 `https://pet-api.onrender.com`）。
 
 3. **前端代码修改与一键部署 (Vue 3)**
-   - 在前端代码 `frontend/src/api/index.js` 中，把原本的本地测试 baseUrl `/api/v1` 修改为刚刚 Koyeb 分配给你在线接口的绝对地址：`https://pet-api-xxx.koyeb.app/api/v1`。
+   - 在前端代码 `frontend/src/api/index.js` 中，把原本的本地测试 baseUrl `/api/v1` 修改为刚刚 Render 分配给你在线接口的绝对地址：`https://pet-api.onrender.com/api/v1`。
    - 将前端代码推送到另一个独立的 GitHub 仓库。
    - 登录 [Vercel](https://vercel.com) 控制台，导入这个前端仓库，框架预设选择 `Vite`。点击 Deploy，1 分钟内部署完成。
 
