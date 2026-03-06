@@ -19,7 +19,7 @@ func Seed(db *gorm.DB) {
 		&model.Review{},
 		&model.Appointment{},
 	); err != nil {
-		log.Fatalf("数据库迁移失败: %v", err)
+		log.Printf("数据库迁移失败或表已存在: %v\n", err)
 	}
 
 	// 检查是否已有数据
