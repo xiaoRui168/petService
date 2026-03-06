@@ -1,0 +1,239 @@
+// Claymorphism 配色系统 (天空蓝 x 活力橙)
+$color-primary: #0EA5E9;       // 主色：信任蓝
+$color-secondary: #38BDF8;     // 辅助蓝
+$color-cta: #F97316;           // 行动呼吁：活力橙
+$color-bg: #F0F9FF;            // 温馨的浅蓝底色
+$color-text: #0C4A6E;          // 深海蓝正文色
+$color-text-light: #475569;    // 辅助浅青灰色
+$color-white: #FFFFFF;
+$color-yellow: #FACC15;
+$color-alert-success: #22C55E;
+$color-alert-error: #EF4444;
+
+// 阴影与立体参数 (Clay)
+$color-shadow: rgba(14, 165, 233, 0.12);
+$color-shadow-strong: rgba(14, 165, 233, 0.25);
+$shadow-clay: 8px 8px 16px rgba(14, 165, 233, 0.15), -8px -8px 16px rgba(255, 255, 255, 0.8), inset 2px 2px 4px rgba(255, 255, 255, 0.5);
+
+$font-heading: 'Fredoka', 'Nunito', -apple-system, sans-serif;
+$font-body: 'Nunito', -apple-system, sans-serif;
+$border-radius: 16px;
+$border-radius-sm: 10px;
+$border-radius-lg: 24px;
+$transition: all 0.3s ease;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-body;
+  color: $color-text;
+  background: $color-bg;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: 600;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: $color-primary;
+  letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: $color-text-light;
+  font-size: 1.05rem;
+  margin-bottom: 48px;
+}
+
+// 按钮 - Claymorphism 按压浮雕效果
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-family: $font-heading;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease-out;
+  text-decoration: none;
+
+  &-primary {
+    background: $color-cta;
+    color: $color-white;
+    // 双层拟物厚重阴影
+    box-shadow: 0 8px 0 darken($color-cta, 15%), 0 15px 25px rgba(249, 115, 22, 0.3), inset 0 2px 0 lighten($color-cta, 20%);
+    
+    &:hover {
+      transform: translateY(2px);
+      box-shadow: 0 6px 0 darken($color-cta, 15%), 0 10px 20px rgba(249, 115, 22, 0.25), inset 0 2px 0 lighten($color-cta, 20%);
+    }
+
+    &:active {
+      transform: translateY(8px);
+      box-shadow: 0 0 0 darken($color-cta, 15%), 0 0 0 rgba(249, 115, 22, 0.1), inset 0 2px 0 lighten($color-cta, 20%);
+    }
+  }
+
+  &-outline {
+    background: $color-white;
+    color: $color-primary;
+    border: 3px solid $color-primary;
+    box-shadow: 0 6px 0 $color-primary, 0 10px 20px rgba(14, 165, 233, 0.15);
+
+    &:hover {
+      transform: translateY(2px);
+      background: lighten($color-primary, 48%);
+      box-shadow: 0 4px 0 $color-primary, 0 8px 15px rgba(14, 165, 233, 0.12);
+    }
+    
+    &:active {
+      transform: translateY(6px);
+      box-shadow: 0 0 0 $color-primary, 0 0 0 transparent;
+    }
+  }
+}
+
+// 卡片基础 - 黏土凸起立体
+.card {
+  background: $color-white;
+  border-radius: $border-radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-clay;
+  border: 4px solid white;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 12px 12px 24px rgba(14, 165, 233, 0.2), -12px -12px 24px rgba(255, 255, 255, 0.9), inset 2px 2px 4px rgba(255, 255, 255, 0.5);
+  }
+}
+
+// 星级评分
+.stars {
+  display: inline-flex;
+  gap: 2px;
+
+  .star {
+    font-size: 1.1rem;
+    color: #ddd;
+
+    &.filled {
+      color: $color-yellow;
+    }
+  }
+}
+
+// Lightbox
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease;
+
+  img {
+    max-width: 90%;
+    max-height: 85vh;
+    border-radius: $border-radius;
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    font-weight: 300;
+  }
+}
+
+// Toast
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 16px 28px;
+  border-radius: $border-radius-sm;
+  font-weight: 600;
+  z-index: 2000;
+  animation: slideIn 0.4s ease;
+
+  &.success {
+    background: linear-gradient(135deg, #56ab2f, #a8e063);
+    color: white;
+  }
+
+  &.error {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+// 响应式
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .section-title {
+    font-size: 1.7rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 32px;
+  }
+}
