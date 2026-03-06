@@ -24,7 +24,14 @@ func InitDB(cfg *config.Config) *gorm.DB {
 			dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=require TimeZone=Asia/Shanghai",
 				cfg.DBHost, cfg.DBUser, cfg.DBPassword, cfg.DBName, cfg.DBPort)
 		}
-		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		// Supabase PgBouncer (Transaction Pooler) 必须禁用 PrepareStmt 或者使用更简单协议
+		// 因为事务模式下的代理无法处理客户端级别的预编译语句状态
+		db, err = gorm.Open(postgres.New(postgres.Config{
+			DSN:                  dsn,
+			PreferSimpleProtocol: true, // 非常关键，告诉驱动不要使用预编译语句，完全适配 PgBouncer 代理
+		}), &gorm.Config{
+			PrepareStmt: false,
+		})
 		if err != nil {
 			log.Fatalf("PostgreSQL 数据库连接失败: %v", err)
 		}
