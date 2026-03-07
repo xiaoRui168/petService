@@ -15,7 +15,7 @@ type Config struct {
 func Load() *Config {
 	return &Config{
 		DBType:     getEnv("DB_TYPE", "mysql"),
-		DBHost:     getEnv("DB_HOST", "10.86.3.168"),
+		DBHost:     getEnv("DB_HOST", "127.0.0.1"),
 		DBPort:     getEnv("DB_PORT", "3306"),
 		DBUser:     getEnv("DB_USER", "root"),
 		DBPassword: getEnv("DB_PASSWORD", "000000"),
